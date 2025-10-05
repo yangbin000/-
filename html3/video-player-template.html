@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频播放 - 镱人动漫</title>
+    <link rel="stylesheet" href="../css/wangye.css">
+    <style>
+        .video-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        video {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .video-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .play-btn {
+            background-color: #ffb6c1;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .play-btn i {
+            margin-right: 5px;
+        }
+        
+        .speed-control {
+            display: flex;
+            align-items: center;
+        }
+        
+        .speed-control select {
+            margin-left: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        .lock-screen {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        .episodes-section {
+            margin-top: 40px;
+        }
+        
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .episode-btn {
+            background-color: #ffb6c1;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .episode-btn:hover {
+            background-color: #ff8fa3;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <div class="background" id="parallax-bg">
+            <img src="../img-t/background.png" alt="Background">
+        </div>
+    </div>
+    
+    <div class="content-overlay">
+        <nav class="container">
+            <div class="logo-container">
+                <img src="../img-t/logo.png" style="width: 100px; height: 100px;" alt="Logo" class="logo">
+            </div>
+            <div class="nav-right">
+                <button type="button" class="support-btn" id="support-btn"><strong>支持我们</strong></button>
+            </div>
+        </nav>
+        
+        <main class="video-container">
+            <video id="anime-video" controls playsinline>
+                <source src="../video/sample.mp4" type="video/mp4">
+                <track kind="subtitles" src="../subtitles/sample.vtt" srclang="zh" label="中文">
+                您的浏览器不支持 HTML5 视频
+            </video>
+            <div class="custom-controls">
+                <button id="fullscreen-btn">全屏</button>
+                <button id="unmute-btn">取消静音</button>
+            </div>
+            
+            <div class="video-controls">
+                <button class="play-btn" id="play-btn">
+                    <i>▶</i> 播放
+                </button>
+                
+                <div class="speed-control">
+                    播放速度:
+                    <select id="speed-select">
+                        <option value="0.5">0.5x</option>
+                        <option value="0.75">0.75x</option>
+                        <option value="1" selected>1x</option>
+                        <option value="1.25">1.25x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2x</option>
+                    </select>
+                </div>
+                
+                <button class="lock-screen" id="lock-screen" title="锁屏">🔒</button>
+            </div>
+            
+            <div class="episodes-section">
+                <h2>剧集列表</h2>
+                <div class="episodes-grid">
+                    <button class="episode-btn">第1集</button>
+                    <button class="episode-btn">第2集</button>
+                    <button class="episode-btn">第3集</button>
+                    <button class="episode-btn">第4集</button>
+                    <button class="episode-btn">第5集</button>
+                    <button class="episode-btn">第6集</button>
+                    <button class="episode-btn">第7集</button>
+                    <button class="episode-btn">第8集</button>
+                    <button class="episode-btn">第9集</button>
+                    <button class="episode-btn">第10集</button> 
+                    <button class="episode-btn">第11集</button>
+                    <button class="episode-btn">第12集</button>
+                    <button class="episode-btn">第13集</button>
+                    <button class="episode-btn">第14集</button>
+                    <button class="episode-btn">第15集</button>
+                    <button class="episode-btn">第16集</button>
+                    <button class="episode-btn">第17集</button>
+                    <button class="episode-btn">第18集</button>
+                    <button class="episode-btn">第19集</button>
+                    <button class="episode-btn">第20集</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="container">
+            <p>© 2025 镱人动漫 | 属于你镱（一）人动漫平台</p>
+        </footer>
+    </div>
+    
+    <!-- 支持模态框 -->
+    <div class="modal" id="qr-modal">
+        <div class="modal-content">
+            <h2>支持镱人动漫</h2>
+            <p>您的支持是网站持续运营的动力</p>
+            <div class="support-images">
+                <div class="support-image">
+                    <img src="../img-t/pay.png" alt="支付宝二维码">
+                    <p>支付宝扫码支持</p>
+                </div>
+                <div class="support-image">
+                    <img src="../img-t/IMG_20251004_105016.jpg" alt="支持图片">
+                    <p>感谢您的支持</p>
+                </div>
+            </div>
+            <sub>不愿意的话可点击周围空白关闭窗口哦~</sub>
+        </div>
+    </div>
+    
+    <script src="../js/wangye.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('anime-video');
+            const playBtn = document.getElementById('play-btn');
+            const speedSelect = document.getElementById('speed-select');
+            const lockScreenBtn = document.getElementById('lock-screen');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const unmuteBtn = document.getElementById('unmute-btn');
+            let isLocked = false;
+            
+            // 确保视频默认有声音
+            video.muted = false;
+            
+            // 播放/暂停控制
+            playBtn.addEventListener('click', function() {
+                if (video.paused) {
+                    video.play();
+                    playBtn.innerHTML = '<i>⏸</i> 暂停';
+                } else {
+                    video.pause();
+                    playBtn.innerHTML = '<i>▶</i> 播放';
+                }
+            });
+            
+            // 播放速度控制
+            speedSelect.addEventListener('change', function() {
+                video.playbackRate = parseFloat(this.value);
+            });
+            
+            // 全屏功能
+            fullscreenBtn.addEventListener('click', function() {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) {
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) {
+                    video.msRequestFullscreen();
+                }
+            });
+            
+            // 取消静音
+            unmuteBtn.addEventListener('click', function() {
+                video.muted = !video.muted;
+                this.textContent = video.muted ? '取消静音' : '静音';
+            });
+            
+            // 锁屏功能
+            lockScreenBtn.addEventListener('click', function() {
+                isLocked = !isLocked;
+                if (isLocked) {
+                    video.requestFullscreen();
+                    lockScreenBtn.textContent = '🔓';
+                    lockScreenBtn.title = '解锁';
+                } else {
+                    document.exitFullscreen();
+                    lockScreenBtn.textContent = '🔒';
+                    lockScreenBtn.title = '锁屏';
+                }
+            });
+            
+            // 剧集按钮点击事件
+            document.querySelectorAll('.episode-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const episode = this.textContent;
+                    alert('即将播放：' + episode);
+                    // 这里可以添加实际切换视频的逻辑
+                });
+            });
+            
+            // 视频播放状态更新
+            video.addEventListener('play', function() {
+                playBtn.innerHTML = '<i>⏸</i> 暂停';
+            });
+            
+            video.addEventListener('pause', function() {
+                playBtn.innerHTML = '<i>▶</i> 播放';
+            });
+            
+            // 检测视频是否有音频轨道
+            video.addEventListener('loadedmetadata', function() {
+                let hasAudio = false;
+                if (video.mozHasAudio) {
+                    console.log('Firefox检测到音频轨道');
+                    hasAudio = true;
+                }
+                if (video.webkitAudioDecodedByteCount > 0) {
+                    console.log('Chrome/Safari检测到音频轨道');
+                    hasAudio = true;
+                }
+                if (video.audioTracks && video.audioTracks.length > 0) {
+                    console.log('检测到'+video.audioTracks.length+'个音频轨道');
+                    hasAudio = true;
+                }
+                
+                if (!hasAudio) {
+                    console.warn('视频没有检测到音频轨道');
+                    alert('警告：当前视频文件没有检测到音频轨道，请检查视频文件');
+                    unmuteBtn.style.display = 'none';
+                } else {
+                    console.log('视频音频信息:', {
+                        volume: video.volume,
+                        muted: video.muted,
+                        audioTracks: video.audioTracks ? video.audioTracks.length : 'N/A'
+                    });
+                }
+            });
+            
+            // 添加音量控制
+            const volumeControl = document.createElement('input');
+            volumeControl.type = 'range';
+            volumeControl.min = 0;
+            volumeControl.max = 1;
+            volumeControl.step = 0.1;
+            volumeControl.value = video.volume;
+            volumeControl.style.marginLeft = '10px';
+            volumeControl.addEventListener('input', function() {
+                video.volume = this.value;
+            });
+            document.querySelector('.speed-control').appendChild(volumeControl);
+        });
+    </script>
+</body>
+</html>

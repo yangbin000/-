@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气之子 - 镱人动漫</title>
+    <link rel="stylesheet" href="../css/wangye.css">
+    <style>
+        .episode-btn {
+            background-color: #ffb6c1;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .episode-btn:hover {
+            background-color: #ff8fa3;
+            transform: scale(1.05);
+        }
+        
+        .anime-detail {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .anime-header {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .anime-poster {
+            flex: 0 0 300px;
+            margin-right: 30px;
+        }
+        
+        .anime-poster img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .anime-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .episodes-section {
+            margin-top: 40px;
+        }
+        
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <div class="background" id="parallax-bg">
+            <img src="../img-t/background.png" alt="Background">
+        </div>
+    </div>
+    
+    <div class="content-overlay">
+        <nav class="container">
+            <div class="logo-container">
+                <img src="../img-t/logo.png" style="width: 100px; height: 100px;" alt="Logo" class="logo">
+            </div>
+            <div class="nav-right">
+                <button type="button" class="support-btn" id="support-btn"><strong>支持我们</strong></button>
+            </div>
+        </nav>
+        
+        <main class="anime-detail">
+            <div class="anime-header">
+                <div class="anime-poster">
+                    <img src="../img/R-C_waifu2x_photo_noise2_scale.png" alt="天气之子海报">
+                </div>
+                <div class="anime-info">
+                    <h1>天气之子 </h1>
+                    <p class="anime-author">作者：新海诚</p>
+                    <p class="anime-type">类型：青春、爱情、</p>
+                    <div class="anime-description">
+                        <p>《天气之子》第二季继续讲述天气之子的故事。天气之子是一名拥有着超能力的天气预报员，他的能力可以让他预测到未来的天气。在这部剧中，天气之子将会面对更加复杂的天气预报问题，并与其他角色一起展开一段奇妙的冒险之旅。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="episodes-section">
+                <h2>剧集列表</h2>
+                <div class="episodes-grid">
+                    <button class="episode-btn">第一集</button>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="container">
+            <p>© 2025 镱人动漫 | 属于你镱（一）人动漫平台</p>
+        </footer>
+    </div>
+    
+    <div class="modal" id="qr-modal">
+        <div class="modal-content">
+            <h2>支持镱人动漫</h2>
+            <p>您的支持是网站持续运营的动力</p>
+            <div class="support-images">
+                <div class="support-image">
+                    <img src="../img-t/pay.png" alt="支付宝二维码">
+                    <p>支付宝扫码支持</p>
+                </div>
+                <div class="support-image">
+                    <img src="../img-t/IMG_20251004_105016.jpg" alt="支持图片">
+                    <p>感谢您的支持</p>
+                </div>
+            </div>
+            <sub>不愿意的话可点击周围空白关闭窗口哦~</sub>
+        </div>
+    </div>
+    
+    <script src="../js/wangye.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取URL参数
+            const urlParams = new URLSearchParams(window.location.search);
+            const currentEpisode = urlParams.get('episode');
+            
+            // 高亮当前集数按钮
+            if(currentEpisode) {
+                document.querySelectorAll('.episode-btn').forEach(btn => {
+                    if(btn.textContent.includes(currentEpisode)) {
+                        btn.style.backgroundColor = '#ff6b8b';
+                        btn.style.fontWeight = 'bold';
+                    }
+                });
+            }
+            
+            // 统一按钮事件处理
+            document.querySelectorAll('.episode-btn').forEach(btn => {
+                // 先移除所有事件监听器
+                btn.replaceWith(btn.cloneNode(true));
+                
+                // 添加新的事件监听器
+                document.querySelector(`.episode-btn:contains('${btn.textContent.trim()}')`)
+                    .addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const episode = this.textContent.trim();
+                        window.location.href = `../html3/天气之子.html?episode=${episode}`;
+                    });
+            });
+        });
+    </script>
+</body>
+</html>
